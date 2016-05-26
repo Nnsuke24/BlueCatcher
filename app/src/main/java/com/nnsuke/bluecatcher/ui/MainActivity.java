@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.ToggleButton;
 
 import com.nnsuke.bluecatcher.R;
+import com.nnsuke.bluecatcher.domain.ListListener;
 import com.nnsuke.bluecatcher.domain.ScanManager;
 import com.nnsuke.bluecatcher.domain.Sensor;
 
@@ -27,15 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
         ListView sensorListView = (ListView)findViewById(R.id.sensor_list_view);
 
-        ArrayList<Sensor> mSensorList = new ArrayList<Sensor>();
-        ScanListAdapter adapter = new ScanListAdapter(MainActivity.this);
+        final ArrayList<Sensor> mSensorList = new ArrayList<Sensor>();
+        final ScanListAdapter adapter = new ScanListAdapter(MainActivity.this);
         adapter.setSensorList(mSensorList);
         sensorListView.setAdapter(adapter);
 
         onChangeScanToggle();
 
         if (mScanManager == null) {
-            mScanManager = new ScanManager(MainActivity.this, mSensorList, adapter);
+            mScanManager = new ScanManager(MainActivity.this, new ListListener() {
+                @Override
+                public void onAddSensor(Sensor sensor) {
+                    mSensorList.add(sensor);
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
 
     }

@@ -3,4 +3,8 @@
 
     <string name="toggle_on">ストップ</string>
     <string name="toggle_off">スタート</string>
+
+    <string name="row_name">Name:</string>
+    <string name="row_rssi">RSSI:</string>
+    <string name="row_address">Address:</string>
 </resources>
