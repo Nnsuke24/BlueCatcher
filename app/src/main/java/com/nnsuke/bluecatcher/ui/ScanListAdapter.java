@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.nnsuke.bluecatcher.R;
 import com.nnsuke.bluecatcher.domain.Sensor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,20 +25,23 @@ public class ScanListAdapter extends BaseAdapter {
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void setSensorList(ArrayList<Sensor> sensorList){
+        this.sensorList = sensorList;
+    }
 
     @Override
     public int getCount() {
-        return 0;
+        return sensorList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return sensorList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return sensorList.get(position).getId();
     }
 
     @Override
@@ -49,7 +53,8 @@ public class ScanListAdapter extends BaseAdapter {
 
         ((TextView)convertView.findViewById(R.id.name)).setText(sensorList.get(position).getName());
         ((TextView)convertView.findViewById(R.id.address)).setText(sensorList.get(position).getAddress());
-        ((TextView)convertView.findViewById(R.id.rssi)).setText(sensorList.get(position).getRssi());
-        return null;
+        ((TextView)convertView.findViewById(R.id.rssi)).setText(String.valueOf(sensorList.get(position).getRssi()));
+
+        return convertView;
     }
 }
